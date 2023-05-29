@@ -46,6 +46,7 @@ const TodoItem = ({ id, text, completed }) => {
     event.preventDefault();
 
     if (currentText === "" || currentText === text) {
+      setEditing(false);
       return;
     }
     dispatch(editTodo({ id, text: currentText }));

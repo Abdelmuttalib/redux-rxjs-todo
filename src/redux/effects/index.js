@@ -10,15 +10,18 @@ const fetchDataEffect = (action$, state$) =>
   action$.pipe(
     ofType(types.FETCH_DATA),
     mergeMap(() =>
-      ajax.get("https://fakestoreapi.com/products").pipe(
-        mergeMap((ajaxResponse) =>
-          of(actions.fetchDataSuccess(ajaxResponse.response))
-        ),
+      ajax.getJSON("https://fakestoreapi.com/products").pipe(
+        mergeMap((products) => {
+          const addTodoActions = products.map((product) =>
+            actions.addTodo(product.title)
+          );
+
+          return [actions.fetchDataSuccess(products), ...addTodoActions];
+        }),
         catchError((error) => of(actions.fetchDataError(error)))
       )
     )
   );
-
 const rootEffect = combineEpics(fetchDataEffect);
 
 export default rootEffect;
