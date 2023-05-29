@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
+  "engines": {
+    "node": "16.x"
+  },  
   "main": "src/index.js",
   "dependencies": {
     "@material-ui/core": "4.12.4",
