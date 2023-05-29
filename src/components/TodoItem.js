@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodo, toggleTodo } from "../redux/actions/index";
+import { deleteTodo, editTodo, toggleTodo } from "../redux/actions/index";
 import {
   Checkbox,
   makeStyles,
@@ -10,6 +10,8 @@ import {
   IconButton,
   ListItemText,
   ListItemSecondaryAction,
+  Button,
+  TextField,
 } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,7 +19,8 @@ import CreateIcon from "@material-ui/icons/Create";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    paddingTop: theme.spacing(3),
+    display: "flex",
+    gap: theme.spacing(1),
   },
   completedText: {
     textDecoration: "line-through",
@@ -28,6 +31,9 @@ const TodoItem = ({ id, text, completed }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const [isEditing, setEditing] = useState(false);
+  const [currentText, setCurrentText] = useState(text);
+
   const handleDelete = () => {
     dispatch(deleteTodo(id));
   };
@@ -36,8 +42,14 @@ const TodoItem = ({ id, text, completed }) => {
     dispatch(toggleTodo(id));
   };
 
-  const handleUpdateItem = (id) => {
-    // TODO: implement update item on pencil icon click
+  const handleUpdateItem = (event) => {
+    event.preventDefault();
+
+    if (currentText === "" || currentText === text) {
+      return;
+    }
+    dispatch(editTodo({ id, text: currentText }));
+    setEditing(false);
   };
 
   return (
@@ -47,12 +59,36 @@ const TodoItem = ({ id, text, completed }) => {
           <FolderIcon />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText
-        primary={text}
-        className={completed ? classes.completedText : null}
-      />
+      {isEditing ? (
+        <form className={classes.form} onSubmit={handleUpdateItem}>
+          <TextField
+            size="small"
+            variant="outlined"
+            label="edit todo item"
+            name="todo"
+            defaultValue={text}
+            onChange={(event) => setCurrentText(event.target.value)}
+          />
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleUpdateItem}
+          >
+            Edit Item
+          </Button>
+        </form>
+      ) : (
+        <ListItemText
+          primary={text}
+          className={completed ? classes.completedText : null}
+        />
+      )}
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="update" onClick={handleUpdateItem}>
+        <IconButton
+          edge="end"
+          aria-label="update"
+          onClick={() => setEditing((current) => !current)}
+        >
           <CreateIcon />
         </IconButton>
         <Checkbox edge="end" onChange={handleToggle} />

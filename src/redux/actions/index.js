@@ -3,54 +3,59 @@ import {
   RESET_TODO_LIST,
   DELETE_TODO,
   TOGGLE_TODO,
+  EDIT_TODO,
   FETCH_DATA,
   FETCH_DATA_SUCCESS,
-  FETCH_DATA_ERROR
+  FETCH_DATA_ERROR,
 } from "./types";
 
 export const addTodo = (payload) => {
   return {
     type: ADD_TODO,
-    payload
+    payload,
   };
 };
 
 export const restTodoList = () => {
   return {
-    type: RESET_TODO_LIST
+    type: RESET_TODO_LIST,
   };
 };
 
 export const deleteTodo = (payload) => {
   return {
     type: DELETE_TODO,
-    payload
+    payload,
   };
 };
 
 export const toggleTodo = (payload) => {
   return {
     type: TOGGLE_TODO,
-    payload
+    payload,
   };
+};
+
+export const editTodo = (payload) => {
+  return { type: EDIT_TODO, payload };
 };
 
 export const fetchData = () => {
   return {
-    type: FETCH_DATA
+    type: FETCH_DATA,
   };
 };
 
 export const fetchDataSuccess = (payload) => {
   return {
     type: FETCH_DATA_SUCCESS,
-    payload
+    payload,
   };
 };
 
 export const fetchDataError = (payload) => {
   return {
     type: FETCH_DATA_ERROR,
-    payload
+    payload,
   };
 };
