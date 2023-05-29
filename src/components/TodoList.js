@@ -1,28 +1,28 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 import { useSelector, useDispatch } from "react-redux";
-import { restTodoList } from "../redux/actions/index";
+import { clearCompletedTodos, restTodoList } from "../redux/actions/index";
 import {
   Button,
   Divider,
   Typography,
   makeStyles,
   Grid,
-  List
+  List,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    paddingTop: theme.spacing(3)
+    paddingTop: theme.spacing(3),
   },
   buttons: {
     paddingTop: theme.spacing(3),
     display: "flex",
-    gap: theme.spacing(1)
+    gap: theme.spacing(1),
   },
   divider: {
-    margin: theme.spacing(3, 0)
-  }
+    margin: theme.spacing(3, 0),
+  },
 }));
 
 const TodoList = () => {
@@ -35,7 +35,7 @@ const TodoList = () => {
   };
 
   const clearCompleted = () => {
-    // TODO: implement remove selected items only
+    dispatch(clearCompletedTodos());
   };
 
   return (

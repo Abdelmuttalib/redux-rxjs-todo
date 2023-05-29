@@ -7,6 +7,7 @@ import {
   FETCH_DATA,
   FETCH_DATA_SUCCESS,
   FETCH_DATA_ERROR,
+  CLEAR_COMPLETED_TODOS,
 } from "./types";
 
 export const addTodo = (payload) => {
@@ -39,6 +40,10 @@ export const toggleTodo = (payload) => {
 export const editTodo = (payload) => {
   return { type: EDIT_TODO, payload };
 };
+
+export const clearCompletedTodos = () => ({
+  type: CLEAR_COMPLETED_TODOS,
+});
 
 export const fetchData = () => {
   return {

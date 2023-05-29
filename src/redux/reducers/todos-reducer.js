@@ -4,6 +4,7 @@ import {
   DELETE_TODO,
   TOGGLE_TODO,
   EDIT_TODO,
+  CLEAR_COMPLETED_TODOS,
 } from "../actions/types";
 
 const initalState = {
@@ -46,6 +47,12 @@ const todosReducer = (state = initalState, action) => {
             ? { ...todo, text: action.payload.text }
             : todo
         ),
+      };
+
+    case CLEAR_COMPLETED_TODOS:
+      return {
+        ...state,
+        list: state.list.filter((todo) => !todo.completed),
       };
     default:
       return state;
