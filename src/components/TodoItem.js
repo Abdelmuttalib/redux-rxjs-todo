@@ -9,7 +9,7 @@ import {
   Avatar,
   IconButton,
   ListItemText,
-  ListItemSecondaryAction
+  ListItemSecondaryAction,
 } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -17,11 +17,11 @@ import CreateIcon from "@material-ui/icons/Create";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    paddingTop: theme.spacing(3)
+    paddingTop: theme.spacing(3),
   },
   completedText: {
-    textDecoration: "line-through"
-  }
+    textDecoration: "line-through",
+  },
 }));
 
 const TodoItem = ({ id, text, completed }) => {
@@ -32,7 +32,7 @@ const TodoItem = ({ id, text, completed }) => {
     dispatch(deleteTodo(id));
   };
 
-  const hanldeToggle = () => {
+  const handleToggle = () => {
     dispatch(toggleTodo(id));
   };
 
@@ -55,7 +55,7 @@ const TodoItem = ({ id, text, completed }) => {
         <IconButton edge="end" aria-label="update" onClick={handleUpdateItem}>
           <CreateIcon />
         </IconButton>
-        <Checkbox edge="end" onChange={hanldeToggle} />
+        <Checkbox edge="end" onChange={handleToggle} />
         <IconButton edge="end" aria-label="delete" onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
